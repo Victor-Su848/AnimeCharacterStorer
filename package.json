@@ -1,0 +1,23 @@
+{
+  "name": "animecharacterstorer",
+  "version": "1.0.0",
+  "description": "**Submitted by:** Victor Su (directory id: vsu)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Victor-Su848/AnimeCharacterStorer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Victor-Su848/AnimeCharacterStorer/issues"
+  },
+  "homepage": "https://github.com/Victor-Su848/AnimeCharacterStorer#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongodb": "^6.6.1"
+  }
+}
