@@ -4,13 +4,62 @@
     <meta charset="utf-8" />
     <title>Cat Image Generator</title>
   </head>
-  <body>
-    <h1>Welcome to the Cat Image Generate</h1>
-
-    <img src="" alt="No image loaded" id="image" />
-    <fieldset>
-      <button id="generate-character-btn">Generate New Cat Images</button>
-    </fieldset>
+  
+    <body style="background-color: #50a901;  font-family: Arial, sans-serif;">
+        <h1 style="
+            color: transparent; 
+        font-family: 'Comic Sans MS', cursive, sans-serif; 
+        font-size: 32px; 
+        text-transform: uppercase; 
+        background-image: linear-gradient(45deg,#FF4500, #1E90FF); 
+        background-clip: text; 
+        -webkit-background-clip: text;
+        user-select: none; 
+        cursor: pointer;">
+        Welcome to the Cat Image Generator (Now with CSS!)</h1>
+    
+        <img src="" alt="No image loaded" id="image" width="200px" />
+        <fieldset style="background-color: #fff; padding: 20px; border-radius: 8px;">
+            <button id="generate-character-btn" style="background-color: #b40391; color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px;">Generate Cat Image</button>
+        </fieldset>
+    
+        <fieldset style="background-color: #fff; padding: 20px; margin-top: 10px; border-radius: 8px;">
+            <form
+                action="http://localhost:<%- port %>/processFavoriteForm"
+                method="post"
+                onsubmit="return validateForm()"
+                style="display: flex; flex-direction: column; gap: 10px;"
+            >
+                Want to favorite this image? 
+                <br>
+                Note: Due to database limitations users can only store one image
+                <p style="font-size:30px">&#128533;</p>
+                <br>
+                <input
+                    id="image-url-input"
+                    readonly
+                    style="width: 300px"
+                    name="imgURL"
+                    value="No image loaded"
+                />
+                <br />
+                <label
+                    ><b>Email Address:</b> <input type="email" name="email" required
+                    style="padding: 8px; border-radius: 4px;"
+                /></label>
+                <button id="favorite-img-btn" style="background-color: #b40391; color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px;">Favorite this cat!</button>
+            </form>
+        </fieldset>
+    
+        <fieldset style="background-color: #fff; padding: 20px; margin-top: 10px; border-radius: 8px;">
+            <form action="http://localhost:<%- port %>/viewFavoriteCat"
+                method="post" style="display: flex; flex-direction: column; gap: 10px;">
+                Want to view a user's favorite cat?
+                <input type="email" name="email" required style="padding: 8px; border-radius: 4px;">
+                <button style="background-color: #b40391; color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px;">View this guy's favorite cat!</button>
+            </form>
+        </fieldset>
+    </body>
 
     <script>
       document
@@ -18,10 +67,10 @@
         .addEventListener("click", generateImage);
 
       async function generateImage() {
-        const apiUrl = "https://api.thecatapi.com/v1/images/search"; 
-        
+        const apiUrl = "https://api.thecatapi.com/v1/images/search";
+
         const params = {
-          limit: 1, 
+          limit: 1,
         };
 
         const queryParams = new URLSearchParams(params);
@@ -30,20 +79,27 @@
 
         fetch(requestUrl, {
           headers: {
-            'x-api-key': 'live_mT4l3NxZlGMflY988u1iQdGRJkthCXmeb4j74pKvy7hfCjp8gWaTQA4DQMYNu54T' // API key
-          }
+            "x-api-key":
+              "live_mT4l3NxZlGMflY988u1iQdGRJkthCXmeb4j74pKvy7hfCjp8gWaTQA4DQMYNu54T", // API key
+          },
         })
           .then((response) => {
             if (response.ok) {
               return response.json();
             } else {
-              throw new Error("Request failed with status code: " + response.status);
+              throw new Error(
+                "Request failed with status code: " + response.status
+              );
             }
           })
           .then((data) => {
             if (data.length > 0) {
               const characterImg = document.getElementById("image");
-              characterImg.src = data[0].url; // Assuming 'url' is the property containing the image URL
+              characterImg.src = data[0].url; 
+
+              const textInputImgURL =
+                document.getElementById("image-url-input");
+              textInputImgURL.value = data[0].url;
             } else {
               alert("No images found.");
             }
@@ -53,6 +109,19 @@
             alert("Error: " + error.message);
           });
       }
+
+      function validateForm() {
+        const imageUrlInput = document.getElementById("image-url-input").value;
+        // Check if the URL is more than just placeholder text
+        if (
+          imageUrlInput === "No image loaded" ||
+          imageUrlInput.trim() === ""
+        ) {
+          alert("Please generate an image before favoriting.");
+          return false; // Prevent form submission
+        }
+        return true; // Allow form submission
+      }
     </script>
-  </body>
+  
 </html>
