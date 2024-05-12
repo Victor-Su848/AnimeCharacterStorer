@@ -2,7 +2,7 @@
 
 **Submitted by:** Victor Su (directory id: vsu)
 
-**Group Members:** Victor Su (vsu)
+**Group Members:** Victor Su (vsu), Maya Chelar (mchelar)
 
 **App Description:** Generate pictures of cats and store them.
 
