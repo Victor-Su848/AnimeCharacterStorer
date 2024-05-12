@@ -7,12 +7,16 @@ const bodyParser = require("body-parser");
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
-//Command line input
+// Routes stuff
+app.set("views", path.resolve(__dirname, "templates"));
+app.set("view engine", "ejs");
+
+// Command line input
 process.stdin.setEncoding("utf8");
 
 // Define a route handler for the default home page
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.render('index');
   });
   
   // Set the server to listen on port 3000
